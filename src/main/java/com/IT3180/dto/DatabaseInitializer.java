@@ -33,7 +33,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     @Transactional
     public void run(String... args) 
     {
-        if (userRepository.findByName("User_101") == null) 
+        if (userRepository.findByName("Admin_1") == null) 
         {
             Role adminRole = roleRepository.findByName(TbConstants.Role.USER);
                     if (adminRole == null)
@@ -45,8 +45,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             // Tạo user admin mới
             User admin = new User();
-            admin.setName("User_101");
-            admin.setPassword(passwordEncoder.encode("14092005")); 
+            admin.setName("Admin_1");
+            admin.setPassword(passwordEncoder.encode("admin1")); 
             List<Role> roles = new ArrayList();
             roles.add(adminRole);
             admin.setRoles(roles);

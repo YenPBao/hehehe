@@ -13,7 +13,7 @@ import com.IT3180.util.TbConstants;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity  // ✅ THÊM DÒNG NÀY ĐỂ CHO PHÉP @AuthenticationPrincipal
+@EnableMethodSecurity  
 public class SpringSecurity {
     private final CustomSuccessHandler customSuccessHandler;
 

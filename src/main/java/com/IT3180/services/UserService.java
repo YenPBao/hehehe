@@ -58,4 +58,8 @@ public class UserService {
 	 public void addUser(User user) {
 	        userRepository.save(user);
 	    }
+	 
+	 public User getUserById(Long id) {
+		 return userRepository.getById(id);
+	 }
 }

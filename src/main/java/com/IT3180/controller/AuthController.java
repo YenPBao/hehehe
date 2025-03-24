@@ -25,7 +25,6 @@ public class AuthController {
 	{
 		return "auth/login";
 	}
-	
 	 @GetMapping("/admin")
 	    public String adminPage(Model model)
 	 {
