@@ -2,10 +2,13 @@ package com.IT3180.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.*;
 
+import com.IT3180.model.Apartment;
 import com.IT3180.model.Role;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class UserDTO {
 	 private Long id;
@@ -14,24 +17,12 @@ public class UserDTO {
 	 private String name;
 	 
 	 private List<Role> roles = new ArrayList<>();   
-	 public UserDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public UserDTO(Long id, @NotEmpty(message = "Nhập tên hợp lệ") String name, List<Role> roles,
-			@NotEmpty(message = "Nhập mật khẩu hợp lệ") String password) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.roles = roles;
-		this.password = password;
-	}
-
-	@NotEmpty(message = "Nhập mật khẩu hợp lệ")
-	 	private String password;
+	 
+	 @NotNull(message = "Phải chọn căn hộ")
+	 private Apartment apartment;
+	 
+	 @NotEmpty
+	 private String password;
 
 	public Long getId() {
 		return id;
@@ -49,14 +40,6 @@ public class UserDTO {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -65,5 +48,35 @@ public class UserDTO {
 		this.roles = roles;
 	}
 
+	public Apartment getApartment() {
+		return apartment;
+	}
+
+	public void setApartment(Apartment apartment) {
+		this.apartment = apartment;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public UserDTO(Long id, @NotEmpty(message = "Nhập tên hợp lệ") String name, List<Role> roles,
+			@NotEmpty Apartment apartment, @NotEmpty String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.roles = roles;
+		this.apartment = apartment;
+		this.password = password;
+	}
+
+	public UserDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 }

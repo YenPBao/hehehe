@@ -1,22 +1,29 @@
 package com.IT3180.model;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
-@Table (name = "role")
+@Table(name = "role")
 public class Role {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column(nullable = false, unique = true)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String name;
+
     @ManyToMany(mappedBy = "roles")
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
 
     public Role(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
 	public Long getId() {
@@ -43,13 +50,16 @@ public class Role {
 		this.users = users;
 	}
 
-	public Role(String name, List<User> users) {
+	public Role(Long id, String name, List<User> users) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.users = users;
 	}
+
 	public Role() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+    
 }

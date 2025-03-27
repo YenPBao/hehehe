@@ -32,7 +32,7 @@ public class UserService {
              throw new RuntimeException("User with name '" + userDto.getName() + "' already exists!");
          }
 
-        User user = new User(userDto.getName(), passwordEncoder.encode(userDto.getPassword()), userDto.getRoles());
+        User user = new User(userDto.getName(), passwordEncoder.encode(userDto.getPassword()), userDto.getRoles(), userDto.getApartment());
         userRepository.save(user);
     }
 

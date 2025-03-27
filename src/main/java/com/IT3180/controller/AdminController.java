@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.IT3180.dto.UserDTO;
+import com.IT3180.model.Apartment;
+import com.IT3180.model.Resident;
+import com.IT3180.services.ApartmentService;
+import com.IT3180.services.ResidentService;
 import com.IT3180.services.UserService;
 
 @Controller
@@ -27,7 +31,12 @@ public class AdminController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ApartmentService apartmentService;
 
+	@Autowired
+	private ResidentService residentService;
 	 @GetMapping("/dashboard")
 	    public String dashboard() 
 	 	{
@@ -37,14 +46,19 @@ public class AdminController {
 	@GetMapping("/account")
 	public String account (Model model)
 	{
+		List<Apartment> apartments = apartmentService.getAllApartment();
+		model.addAttribute("apartments",apartments );
 		List<com.IT3180.model.User> users = userService.getAllUsers();
     	model.addAttribute("users", users);
-		return "admin/account";
+   		return "admin/account";
 	}
 	
 	@GetMapping ("/resident")
-	public String resident()
+	public String resident(Model model)
 	{
+		List<Apartment> apartments = apartmentService.getAllApartment();
+		List<Resident> residents = residentService.getAllResidents();	
+		model.addAttribute("apartments",apartments );
 		return "admin/resident";
 	}
 	

@@ -216,8 +216,6 @@
                 Quản lí cư dân
               </p>
             </a>
-             <ul class = "nav nav-treeview">
-          </ul>
           </li>
           
           <!-- Quản lí tài khoản -->
@@ -294,13 +292,15 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
- 			 <h3 class="card-title mb-0">QUẢN LÍ TÀI KHOẢN</h3>
- 			  <div class="ml-auto">
-  				<button type="button" class="btn btn-outline-primary btn-sm shadow-sm rounded-pill" data-toggle="modal" data-target="#modal-default">
-                  <i class="fas fa-user-plus mr-1"></i> Tạo tài khoản
-                </button>
-                </div>
-			</div>
+              <!-- /.card-body -->
+              <div class="ml-auto">
+			    <button type="button" class="btn btn-outline-primary btn-sm shadow-sm rounded-pill" data-toggle="modal" data-target="#modal-default">
+			      <i class="fas fa-user-plus mr-1"></i> Tạo tài khoản
+			    </button>
+			  </div>
+            </div>
+			  <!-- Nút tạo tài khoản -->
+
 
 
           <!-- /.card-header -->
@@ -311,6 +311,7 @@
                 <tr>
                   <th class="text-center">Tên đăng nhập</th>
                   <th class="text-center">Mật khẩu</th>
+                  <th class = "text-center">Căn hộ </th>
                   <th class="text-center">Chức vụ</th>
                 </tr>
               </thead>
@@ -319,6 +320,8 @@
                 <tr th:each="user : ${users}">
                   <td th:text="${user.name}">Tên đăng nhập</td>
                   <td th:text="${user.password}">Mật khẩu</td> 
+                  <td th:text="${user.apartment != null} ? 'Căn hộ: ' + ${user.apartment.id} : 'N/a'">Căn hộ</td>
+
                   <td>
                     <!-- Duyệt qua các vai trò của người dùng -->
                     <span th:each="role : ${user.roles}" th:text="${role.name}">Vai trò</span>
@@ -329,6 +332,7 @@
 	                  </form>
                   </td>
                 </tr>
+                
               </tbody>
             </table>
           </div>
@@ -405,7 +409,21 @@
               <option value="3">Khách</option>
             </select>
           </div>
-        </div>
+        
+        
+			<div class="form-group">
+  				<label for="apartment">Căn hộ</label>
+  				<select name="apartment.id" id="apartments" class="form-control" required>
+	    			<option value="" disabled selected>-- Chọn căn hộ --</option>
+	   				<th:block th:each="apt : ${apartments}">
+	      			<option th:value="${apt.id}"
+	             	th:text=" ${apt.id} "></option>
+	   				</th:block>
+ 				</select>
+          </div>
+         </div>
+        
+        	
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
