@@ -5,8 +5,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.IT3180.model.User;
+import com.IT3180.model.Apartment;
 import com.IT3180.model.Role;
 import com.IT3180.dto.UserDTO;
+import com.IT3180.repository.ApartmentRepository;
 import com.IT3180.repository.RoleRepository;
 import com.IT3180.repository.UserRepository;
 import com.IT3180.util.TbConstants;
@@ -25,14 +27,22 @@ public class UserService {
 	@Autowired 
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired 
+	private ApartmentRepository apartmentRepository;
+	
 	
     public void saveUser(UserDTO userDto) 
 	{
     	 if (userRepository.existsByName(userDto.getName())) {
              throw new RuntimeException("User with name '" + userDto.getName() + "' already exists!");
          }
-
-        User user = new User(userDto.getName(), passwordEncoder.encode(userDto.getPassword()), userDto.getRoles(), userDto.getApartment());
+    	 
+    	 Apartment apartment = null;
+    	    if (userDto.getApartment() != null && userDto.getApartment().getId() != null) {
+    	        apartment = apartmentRepository.findById(userDto.getApartment().getId())
+    	                .orElse(null);  // Nếu không tìm thấy, trả về null
+    	    }
+        User user = new User(userDto.getName(), passwordEncoder.encode(userDto.getPassword()), userDto.getRoles(),apartment);
         userRepository.save(user);
     }
 
@@ -61,5 +71,10 @@ public class UserService {
 	 
 	 public User getUserById(Long id) {
 		 return userRepository.getById(id);
+	 }
+	 
+	 public Long getTotalUser ()
+	 {
+		 return userRepository.count();
 	 }
 }

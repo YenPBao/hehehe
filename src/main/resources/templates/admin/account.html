@@ -216,6 +216,8 @@
                 Quản lí cư dân
               </p>
             </a>
+             <!-- <ul class = "nav nav-treeview">
+          </ul> -->
           </li>
           
           <!-- Quản lí tài khoản -->
@@ -228,7 +230,7 @@
          
           <!-- Quảm lí khoản phí -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a th:href="@{/admin/billing}"class="nav-link">
               <i class="fas fa-file-invoice-dollar"></i>
               <p>
                 Quản lí khoản phí
@@ -275,7 +277,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Home</a></li>
               <li class="breadcrumb-item active">Admin BlueMoon</li>
             </ol>
           </div><!-- /.col -->
@@ -292,15 +294,13 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
-              <!-- /.card-body -->
-              <div class="ml-auto">
-			    <button type="button" class="btn btn-outline-primary btn-sm shadow-sm rounded-pill" data-toggle="modal" data-target="#modal-default">
-			      <i class="fas fa-user-plus mr-1"></i> Tạo tài khoản
-			    </button>
-			  </div>
-            </div>
-			  <!-- Nút tạo tài khoản -->
-
+ 			 <h3 class="card-title mb-0">QUẢN LÍ TÀI KHOẢN</h3>
+ 			  <div class="ml-auto">
+  				<button type="button" class="btn btn-outline-primary btn-sm shadow-sm rounded-pill" data-toggle="modal" data-target="#modal-default">
+                  <i class="fas fa-user-plus mr-1"></i> Tạo tài khoản
+                </button>
+                </div>
+			</div>
 
 
           <!-- /.card-header -->
@@ -311,7 +311,7 @@
                 <tr>
                   <th class="text-center">Tên đăng nhập</th>
                   <th class="text-center">Mật khẩu</th>
-                  <th class = "text-center">Căn hộ </th>
+                  <th class="text-center">Căn hộ</th>
                   <th class="text-center">Chức vụ</th>
                 </tr>
               </thead>
@@ -320,7 +320,7 @@
                 <tr th:each="user : ${users}">
                   <td th:text="${user.name}">Tên đăng nhập</td>
                   <td th:text="${user.password}">Mật khẩu</td> 
-                  <td th:text="${user.apartment != null} ? 'Căn hộ: ' + ${user.apartment.id} : 'N/a'">Căn hộ</td>
+                  <td th:text="${user.apartment != null ? user.apartment.id : 'Chưa có căn hộ'}">Căn hộ</td>
 
                   <td>
                     <!-- Duyệt qua các vai trò của người dùng -->
@@ -332,7 +332,6 @@
 	                  </form>
                   </td>
                 </tr>
-                
               </tbody>
             </table>
           </div>
@@ -409,21 +408,25 @@
               <option value="3">Khách</option>
             </select>
           </div>
+          
+         <div class="form-group">
+    		<label for ="apartment">Căn Hộ</label>
+    		<select name="apartment" id="apartment" class="form-control" required>
+        <!-- Tùy chọn Không có căn hộ (giá trị null) -->
+        	<option value="" disabled selected>-- Chọn căn hộ --</option>
+        	<option value="" >Không có căn hộ</option>
         
-        
-			<div class="form-group">
-  				<label for="apartment">Căn hộ</label>
-  				<select name="apartment.id" id="apartments" class="form-control" required>
-	    			<option value="" disabled selected>-- Chọn căn hộ --</option>
-	   				<th:block th:each="apt : ${apartments}">
-	      			<option th:value="${apt.id}"
-	             	th:text=" ${apt.id} "></option>
-	   				</th:block>
- 				</select>
-          </div>
-         </div>
-        
-        	
+        <!-- Các căn hộ được lặp qua từ danh sách -->
+        	<th:block th:each="apartment : ${apartments}">
+            <option th:value="${apartment.id}" th:text = "${apartment.id}" > </option>
+       		</th:block>
+    		</select>
+		</div>
+		
+		
+		
+		
+</div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>

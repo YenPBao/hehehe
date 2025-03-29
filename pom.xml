@@ -3,20 +3,24 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>3.0.2</version> <!-- Kiểm tra lại phiên bản -->
+        <relativePath/> <!-- Có thể bỏ qua -->
     </parent>
+    
     <groupId>com.cb</groupId>
     <artifactId>spring-security-form-login</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-security-form-login</name>
     <description>Spring Security + Thymeleaf + MySql</description>
+    
     <properties>
-        <java.version>17</java.version>
+        <java.version>17</java.version> <!-- Kiểm tra lại phiên bản JDK -->
     </properties>
+    
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -73,8 +77,24 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
     <build>
         <plugins>
+            <!-- Maven Resources Plugin to handle resources properly -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version> <!-- Sử dụng phiên bản chính thức -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Spring Boot Maven Plugin for building the application -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

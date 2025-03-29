@@ -1,80 +1,87 @@
 package com.IT3180.model;
-import java.util.ArrayList;
-import java.util.List;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "apartment")
 public class Apartment {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "area")
-    private Long area;
+    @Column(name = "id_householder", nullable = true)
+    private Long idHouseholder;
+
+    @Column(name = "phone", length = 15, nullable = true)
+    private String phone;
+
+    @Column(name = "area", nullable = false)
+    private Double area;
+
+    @OneToMany(mappedBy = "apartment")
+    private List<Resident> residents;
 
     @OneToOne(mappedBy = "apartment")
     private User user;
-    
-    @OneToMany(mappedBy = "apartment")
-    private List<Resident> residents = new ArrayList<>();
 
-	public Long getId() {
-		return id;
-	}
+    // Constructors
+    public Apartment() {}
 
-	public void setId(Long apartmentId) {
-		this.id = apartmentId;
-	}
+    public Apartment(Long id, Long idHouseholder, String phone, Double area) {
+        this.id = id;
+        this.idHouseholder = idHouseholder;
+        this.phone = phone;
+        this.area = area;
+    }
 
-	public Long getArea() {
-		return area;
-	}
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
 
-	public void setArea(Long area) {
-		this.area = area;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public User getUser() {
-		return user;
-	}
-	
-	public void addResident(Resident resident) {
-	    residents.add(resident);
-	    resident.setApartment(this);
-	}
+    public Long getIdHouseholder() {
+        return idHouseholder;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-		user.setApartment(this);
-	}
+    public void setIdHouseholder(Long idHouseholder) {
+        this.idHouseholder = idHouseholder;
+    }
 
-	public List<Resident> getResidents() {
-		return residents;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setResidents(List<Resident> residents) {
-		this.residents = residents;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public Apartment(Long apartmentId, Long area, User user) {
-		super();
-		this.id = apartmentId;
-		this.area = area;
-		this.user = user;
-	}
+    public Double getArea() {
+        return area;
+    }
 
-	public Apartment() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public Apartment(Long id, Long area, User user, List<Resident> residents) {
-		super();
-		this.id = id;
-		this.area = area;
-		this.user = user;
-		this.residents = residents;
-	}
+    public void setArea(Double area) {
+        this.area = area;
+    }
+
+    public List<Resident> getResidents() {
+        return residents;
+    }
+
+    public void setResidents(List<Resident> residents) {
+        this.residents = residents;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
+
